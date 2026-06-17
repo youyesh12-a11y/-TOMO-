@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>図形テスト</title>
+  <style>
+    canvas { background: #fff; border: 1px solid #333; }
+  </style>
+</head>
+<body>
+  <h1>TOMOの秘密部屋　ホーム画面</h1>
+
+  <canvas id="cv" width="900" height="900"></canvas>
+
+  <script>
+    const canvas = document.getElementById('cv');
+    const ctx = canvas.getContext('2d');
+
+    const img = new Image();
+    img.src = 'TOMOのゲームのお知らせ.png';
+
+    // ボタン1
+    const btn = {
+      x: 20,
+      y: 220,
+      w: 200,
+      h: 50
+    };
+
+    // ボタン2
+    const btn2 = {
+      x2: 0,
+      y2: 370,
+      w2: 200,
+      h2: 50
+    };
+
+    img.onload = () => {
+      const w = img.width;
+      const h = img.height;
+
+      const newW = 700;
+      const newH = h * (newW / w);
+
+      ctx.drawImage(img, 0, 110, newW, newH);
+
+      // 最初の文字
+      ctx.font = "30px 'Yu Gothic', sans-serif";
+      ctx.fillStyle = "red";
+      ctx.fillText("内容を表示　ボタンをクリックしたら内容が表示されます", 10, 29);
+
+      ctx.font = "20px 'Yu Gothic', sans-serif";
+      ctx.fillStyle = "black";
+      ctx.fillText("TOMO自作ゲームの最新情報はこちらから", 20, 90);
+
+      ctx.font = "17px 'MS ゴシック', sans-serif";
+      ctx.fillStyle = "black";
+      ctx.fillText("TOMOのゲームのバグ・不具合の報告はこちらから・こんなゲームを作ってほしいなどのご意見もお聞かせください",0, 360);
+
+      drawButton();
+      drawButton2();   // ← ★ これが抜けていた！
+    };
+
+    // ボタン1
+    function drawButton() {
+      ctx.fillStyle = "#4CAF50";
+      ctx.fillRect(btn.x, btn.y, btn.w, btn.h);
+
+      ctx.strokeStyle = "#2E7D32";
+      ctx.strokeRect(btn.x, btn.y, btn.w, btn.h);
+
+      ctx.font = "24px 'Yu Gothic'";
+      ctx.fillStyle = "white";
+      ctx.fillText("内容を表示", btn.x + 20, btn.y + 33);
+    }
+
+    // ボタン2
+    function drawButton2() {
+      ctx.fillStyle = "#4CAF50";
+      ctx.fillRect(btn2.x2, btn2.y2, btn2.w2, btn2.h2);
+
+      ctx.strokeStyle = "#2E7D32";
+      ctx.strokeRect(btn2.x2, btn2.y2, btn2.w2, btn2.h2);
+
+      ctx.font = "24px 'Yu Gothic'";
+      ctx.fillStyle = "white";
+      ctx.fillText("内容を表示", btn2.x2 + 20, btn2.y2 + 33);
+    }
+
+    // クリック判定
+    canvas.addEventListener("click", (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+
+      // ボタン1
+      if (mx > btn.x && mx < btn.x + btn.w &&
+          my > btn.y && my < btn.y + btn.h) {
+        window.location.href = "TOMOのゲームのお知らせ.html";
+      }
+
+      // ボタン2
+      if (mx > btn2.x2 && mx < btn2.x2 + btn2.w2 &&
+          my > btn2.y2 && my < btn2.y2 + btn2.h2) {
+        window.location.href = "https://youyesh12-a11y.github.io/TOMOch-/";
+      }
+    });
+  </script>
+</body>
+</html>
